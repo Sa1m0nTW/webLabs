@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/imask"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        <div class="regist">
+        <h1>Регистрация</h1>
+        <hr>
+        <form id="regform" name="regform">
+            <div>        
+            <label for="email">Введите вашу почту: </label>
+                <div> 
+                <input placeholder="почта" size="25" name="email" id="email" type="email" required>
+                </div> 
+            </div>
+            <div>
+            <label for="password">Введите ваш пароль: </label>
+                <div> 
+                <input placeholder="пароль" type="password" size="25" name="password" id="password" required>
+                </div>
+            </div>
+            <div> 
+            <label for="confirm_password">Подтвердите пароль: </label>
+                <div> 
+                <input placeholder="пароль снова" type="password" size="25" name="confirm_password" id="confirm_password" required>
+                </div>
+            </div>
+            <span id='matchmess'></span>
+            <div> 
+            <label for="login">Введите ваш логин:</label>
+                <div> 
+                <input placeholder="логин" size="25" name="login" id="login" type="text" required>
+                </div>
+            </div>
+            <div> 
+            <label for="date">Укажите вашу дату рождения:</label>
+                <div> 
+                <input type="date" name="date" id="date">
+                </div>
+            </div>
+            <div> 
+            <label for="photo">Добавьте ваш аватар на сайт:</label>
+                <div>
+                <label for="photo" class="photoinp">Выберите файл
+                <input type="file" name="photo" id="photo" hidden></label>
+                </div>
+            </div>          
+            <div> 
+            <label for="phone">Введите номер вашего телефона:</label>
+                <div> 
+                    <input size="25" type="tel" name="phone" id="phone" required>
+                </div>
+            </div>
+            <div> 
+            <label for="fname">Введите ваше имя:</label>
+                <div> 
+                <input placeholder="имя" size="25" name="fname" id="fname">
+                </div>
+            </div>
+            <div>
+            <label for="country">Введите вашу страну проживания:</label>
+               <div class="input autocomplete">
+                 <input size="25" placeholder="страна" type="text" name="country" id="country"/>
+               </div>
+            </div>
+            <div> 
+            <label for="spam">Рекламная рассылка:</label>
+                <input type="checkbox" checked name="spam" id="spam">
+            </div>
+            <div> 
+            <label for="agr">Согласие на обработку перс. данных:</label>
+            <input type="checkbox" name="agr" id="agr" required>
+            </div>
+            <div class="wherefrom">Откуда вы узнали о нас?
+                        <div class="ratopts">
+                        <input type="radio" id="search" name="wherefrom" value="Из поисковика">
+                        <label for="search">Из поисковика</label><br>
+                        <input type="radio" id="friends" name="wherefrom" value="От знакомых/друзей">
+                        <label for="friends">От знакомых/друзей</label><br>
+                        <input type="radio" id="another" name="wherefrom" value="Другое" checked>
+                        <label for="another">Другое</label>
+                        </div>
+            </div> 
+        <br>
+        <div class="regbtn">
+            <button type="submit">Зарегистрироваться</button>
+        </div>
+    </div>
+        </form>
+        <script>
+        var phoneMask = IMask(
+        document.getElementById('phone'), {
+            mask: '+{7}(000)000-00-00'
+        });
+        </script>
+        <script src="../scripts/contriesauto.js"></script>
+        <script>
+            $('#regform').validate({
+            invlidClass:"invalid",
+            errorClass: "invalid",
+            validClass: "valid",
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8,
+                },
+                confirm_password:{
+                    equalTo: "#password"
+                },
+                login:{
+                    required: true,
+                    minlength: 3
+                },
+                phone: {
+                    required: true,
+                    minlength:16
+                },
+                date:{
+                    dateISO:true,
+                }
+            },
+            messages: {
+                email: {
+                    required: "Email обязателен к заполнению",
+                    email: "Email должен содержать @ и адрес после"
+                },
+                password: {
+                    required: "Пароль обязателен к заполнению",
+                    minlength: "Пароль должен состоять минимум из 8 символов",
+                },
+                confirm_password:{
+                    required: "Повторение обязателен к заполнению",
+                    equalTo: "Пароли должны совпадать"
+                },
+                login: {
+                    required: "Логин обязателен к заполнению",
+                    minlength: "Логин должен состоять минимум из 3 символов"
+                },
+                phone: {
+                    required: "Телефон обязателен к заполнению",
+                    minlength: "Неверно введён номер"
+                },
+                agr:{
+                    required:"Поставьте галочку",
+                },
+                date:{
+                    dateISO:"Введите корректную дату"
+                }
+            }
+        })
+        
+        $("#regform").submit((event) => {
+            if($("#regform").valid()){
+                    alert("Регистрация прошла успешно");
+            }
+        })
+        </script>
+    </body>
+</html>
